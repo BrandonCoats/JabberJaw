@@ -1,0 +1,11 @@
+
+public abstract class Database {
+	
+	public abstract String getUserById();
+	//attached to a different database just for users 
+	//database: sql: Users
+	public abstract String getAnswerByNoun();
+	
+	
+
+}
