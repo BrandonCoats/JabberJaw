@@ -1,0 +1,8 @@
+
+public class GrammerReader {
+	private String input;
+	public GrammerReader(String input)
+	{
+		
+	}
+}

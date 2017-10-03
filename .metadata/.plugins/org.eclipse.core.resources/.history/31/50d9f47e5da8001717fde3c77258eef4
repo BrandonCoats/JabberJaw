@@ -1,0 +1,7 @@
+
+public class GrammerReader {
+	public GrammerReader()
+	{
+		
+	}
+}

@@ -1,0 +1,12 @@
+
+public class GrammerReader {
+	private String input;
+	public GrammerReader(String input)
+	{
+		this.input = input;
+	}
+	public boolean IsinGrammer()
+	{
+		
+	}
+}
