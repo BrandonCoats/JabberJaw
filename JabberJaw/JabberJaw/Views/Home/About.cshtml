@@ -1,7 +1,20 @@
-﻿@{
+﻿@model  JabberJaw.Models.AboutModels
+@{
     ViewBag.Title = "About";
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
 <p>Use this area to provide additional information.</p>
+
+<!--Below is the format for grabbing specific things from the controller
+The .name part is based on what you call it in  the controller    
+-->
+<p>@ViewBag.Name</p>
+
+<!--
+    An example of using the model to grab data from the controllers
+    the model. format is simply syntax all data pulls are called like this 
+-->
+<p>Age: @Model.Age</p>
+<p>Height: @Model.Height</p>
