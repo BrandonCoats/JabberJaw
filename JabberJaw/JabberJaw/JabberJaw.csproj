@@ -277,7 +277,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Corruption\" />
-    <Folder Include="favicon.ico\" />
     <Folder Include="Views\Approved\" />
   </ItemGroup>
   <ItemGroup>
