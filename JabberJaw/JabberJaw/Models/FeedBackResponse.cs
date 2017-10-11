@@ -7,6 +7,7 @@ namespace JabberJaw.Models
 {
     public class FeedBackResponse
     {
+        public int id { get; set; }
         public string partofSpeech { get; set; }
         public string actualWord { get; set; }
 

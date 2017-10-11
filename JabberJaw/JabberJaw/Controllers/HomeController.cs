@@ -9,9 +9,13 @@ namespace JabberJaw.Controllers
 {
     public class HomeController : Controller
     {
+        LearningDb _db = new LearningDb();
         public ActionResult Index()
         {
-            return View();
+
+           var model = new FeedbackDetails();
+            model.AllFeedback = _db.getAllData();
+            return View(model);
         }
 
         public ActionResult About()
@@ -38,5 +42,6 @@ namespace JabberJaw.Controllers
         {
             return View();
         }
+        
     }
 }

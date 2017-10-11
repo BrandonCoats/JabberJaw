@@ -15,107 +15,114 @@ namespace JabberJaw.Controllers
         /// Below is a temporary data chunk until i get database connected.
         /// </summary>
         /// <returns></returns>
-        static List<FeedBackResponse> responses = new List<FeedBackResponse>
-        {
-            new FeedBackResponse
-            {
-                actualWord = "pie",
-                partofSpeech = "noun"
-            },
-            new FeedBackResponse
-            {
-                actualWord = "run",
-                partofSpeech = "verb"
-            },
-            new FeedBackResponse
-            {
-                actualWord = "fast",
-                partofSpeech = "adjective"
-            }
+        //static List<FeedBackResponse> responses = new List<FeedBackResponse>
+        //{
+        //    new FeedBackResponse
+        //    {
+        //        id=1,
+        //        actualWord = "pie",
+        //        partofSpeech = "noun"
+        //    },
+        //    new FeedBackResponse
+        //    {
+        //         id=2,
+        //        actualWord = "run",
+        //        partofSpeech = "verb"
+        //    },
+        //    new FeedBackResponse
+        //    {
+        //         id=3,
+        //        actualWord = "fast",
+        //        partofSpeech = "adjective"
+        //    }
 
-        };
+        //};
         // GET: FeedBack
-        public ActionResult Index()
-        {
-            //I really like this, this is like an sql query but for a list will be super easy to convert later
-           var model = 
-            from r in responses
-            orderby r.actualWord
-            select r;
-            return View(model);
-        }
+        //public ActionResult Index()
+        //{
+        //    //I really like this, this is like an sql query but for a list will be super easy to convert later
+        //    /*
+        //   var model = 
+        //    from r in responses
+        //    orderby r.actualWord
+        //    select r;
+        //    return View(model);
+        //    */
+        //    return View();
+        //}
+        //public ActionResult Home()
+        //{
 
-        // GET: FeedBack/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
+        //    return RedirectToRoute("Home","Index");
+        //}
 
-        // GET: FeedBack/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        //// GET: FeedBack/Details/5
+        //public ActionResult Details(int id)
+        //{
+        //    return View();
+        //}
 
-        // POST: FeedBack/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
+        //// GET: FeedBack/Create
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //// POST: FeedBack/Create
+        //[HttpPost]
+        //public ActionResult Create(FormCollection collection)
+        //{
+        //    try
+        //    {
+        //        // TODO: Add insert logic here
 
-        // GET: FeedBack/Edit/5
-        public ActionResult Edit(string id)
-        {
-            //var word = responses.Single(r => r.actualWord == id);
-            return View();
-        }
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
 
-        // POST: FeedBack/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
+        //// GET: FeedBack/Edit/5
+        ////public ActionResult Edit(int id)
+        ////{
+        ////    //var ID = responses.Single(r => r.id == id);
+        ////    return View(ID);
+        ////}
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        ////// POST: FeedBack/Edit/5
+        ////[HttpPost]
+        ////public ActionResult Edit(int id, FormCollection collection)
+        ////{
+        ////    var ID = responses.Single(r => r.id == id);
+        ////    if(TryUpdateModel(ID))
+        ////    {
+        ////        return RedirectToAction("Index");
+        ////    }
+        ////    return View(ID);
+        ////}
 
-        // GET: FeedBack/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+        //// GET: FeedBack/Delete/5
+        //public ActionResult Delete(int id)
+        //{
+        //    return View();
+        //}
 
-        // POST: FeedBack/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
+        //// POST: FeedBack/Delete/5
+        //[HttpPost]
+        //public ActionResult Delete(int id, FormCollection collection)
+        //{
+        //    try
+        //    {
+        //        // TODO: Add delete logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
     }
 }

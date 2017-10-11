@@ -1,11 +1,25 @@
-﻿@{
+﻿@model JabberJaw.Models.FeedbackDetails
+
+@{
     ViewBag.Title = "Home Page";
 }
-
-<div class="jumbotron">
+<!--
+    <div class="jumbotron">
     <div class="MyClass">
         <h1>JabberJaw Search</h1>
         <input type="text" name="input">
         <input type="submit" name="Enter">
     </div>
 </div>
+-->
+
+
+ @foreach (var item in Model.AllFeedback)
+ {
+    <div>
+     <h4>@item.word</h4>
+     <h4>@item.partOfSpeech</h4>
+     <h4>@item.respondedTo</h4> 
+        <hr />
+    </div>
+ }
