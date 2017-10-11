@@ -206,12 +206,12 @@
     <Compile Include="Models\AboutModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\FeedbackDetails.cs" />
-    <Compile Include="Models\FeedBackResponse.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Learning.cs" />
     <Compile Include="Models\LearningData.cs" />
     <Compile Include="Models\LearningDb.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Search.cs" />
+    <Compile Include="Models\SearchDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

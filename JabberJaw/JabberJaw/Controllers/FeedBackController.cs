@@ -38,91 +38,22 @@ namespace JabberJaw.Controllers
 
         //};
         // GET: FeedBack
-        //public ActionResult Index()
-        //{
-        //    //I really like this, this is like an sql query but for a list will be super easy to convert later
-        //    /*
-        //   var model = 
-        //    from r in responses
-        //    orderby r.actualWord
-        //    select r;
-        //    return View(model);
-        //    */
-        //    return View();
-        //}
-        //public ActionResult Home()
-        //{
+        LearningDb _db = new LearningDb();
+        //need to remove to see the feedback page without signing in
+        [Authorize]
+        public ActionResult Index()
+        {
 
-        //    return RedirectToRoute("Home","Index");
-        //}
+            var model = new FeedbackDetails();
+            model.AllWithPartOfSpeech = _db.getAllbyPartOfSpeech("noun");
+            return View(model);
+        }
+        public ActionResult Home()
+        {
 
-        //// GET: FeedBack/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
+            return RedirectToRoute("Home","Index");
+        }
 
-        //// GET: FeedBack/Create
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
-
-        //// POST: FeedBack/Create
-        //[HttpPost]
-        //public ActionResult Create(FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add insert logic here
-
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
-        //// GET: FeedBack/Edit/5
-        ////public ActionResult Edit(int id)
-        ////{
-        ////    //var ID = responses.Single(r => r.id == id);
-        ////    return View(ID);
-        ////}
-
-        ////// POST: FeedBack/Edit/5
-        ////[HttpPost]
-        ////public ActionResult Edit(int id, FormCollection collection)
-        ////{
-        ////    var ID = responses.Single(r => r.id == id);
-        ////    if(TryUpdateModel(ID))
-        ////    {
-        ////        return RedirectToAction("Index");
-        ////    }
-        ////    return View(ID);
-        ////}
-
-        //// GET: FeedBack/Delete/5
-        //public ActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
-
-        //// POST: FeedBack/Delete/5
-        //[HttpPost]
-        //public ActionResult Delete(int id, FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add delete logic here
-
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+      
     }
 }

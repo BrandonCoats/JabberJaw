@@ -1,8 +1,19 @@
-﻿@model JabberJawData.LearningData
-
+﻿@model JabberJaw.Models.FeedbackDetails
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 @{
     ViewBag.Title = "Index";
 }
-
 <h2>Index</h2>
+
+@foreach (var item in Model.AllWithPartOfSpeech)
+{
+    <div>
+        <h4>@item.word</h4>
+        <h4>@item.partOfSpeech</h4>
+        <h4>@item.respondedTo</h4>
+        <hr />
+    </div>
+}
 

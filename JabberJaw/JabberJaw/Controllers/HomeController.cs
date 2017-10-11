@@ -10,14 +10,25 @@ namespace JabberJaw.Controllers
     public class HomeController : Controller
     {
         LearningDb _db = new LearningDb();
+        [HttpGet]
         public ActionResult Index()
         {
-
-           var model = new FeedbackDetails();
-            model.AllFeedback = _db.getAllData();
-            return View(model);
+            //var model = new FeedbackDetails();
+            // model.AllFeedback = _db.getAllData();
+            // return View(model);
+            var query = new SearchDetails();
+            return View(query);
         }
-
+        [HttpPost]
+        public ActionResult Index(SearchDetails details)
+        {
+            var model = new SearchDetails();
+            model.Query = details.Query;
+            //var model = new FeedbackDetails();
+            // model.AllFeedback = _db.getAllData();
+            // return View(model);
+            return RedirectToAction("Index", "Home");
+        }
         public ActionResult About()
         {
             //This is the first use of .Name i made it up but it doesn't really matter
@@ -36,12 +47,7 @@ namespace JabberJaw.Controllers
 
             return View();
         }
-        //need to remove to see the feedback page without signing in
-       [Authorize]
-        public ActionResult FeedBack()
-        {
-            return View();
-        }
+       
         
     }
 }
