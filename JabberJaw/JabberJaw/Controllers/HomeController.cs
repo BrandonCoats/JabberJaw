@@ -16,14 +16,18 @@ namespace JabberJaw.Controllers
             //var model = new FeedbackDetails();
             // model.AllFeedback = _db.getAllData();
             // return View(model);
-            var query = new SearchDetails();
-            return View(query);
+           // var query = new SearchDetails();
+            return View();
         }
         [HttpPost]
         public ActionResult Index(SearchDetails details)
         {
             var model = new SearchDetails();
             model.Query = details.Query;
+            //if(ModelState.IsValid)
+            //{
+            //    _db.
+            //}
             //var model = new FeedbackDetails();
             // model.AllFeedback = _db.getAllData();
             // return View(model);
