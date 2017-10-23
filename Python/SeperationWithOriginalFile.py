@@ -6,7 +6,7 @@ from nltk.tokenize import PunktSentenceTokenizer
 class File:
     train_text = ""
     sample_text = ""
-    
+
     def __init__(self):
         self.train_text = ""
         self.sample_text = ""
