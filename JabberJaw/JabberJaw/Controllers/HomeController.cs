@@ -10,20 +10,24 @@ namespace JabberJaw.Controllers
     public class HomeController : Controller
     {
         LearningDb _db = new LearningDb();
-        [HttpGet]
+        // SearchDetails details = new SearchDetails();
+        static List<Search> details = new List<Search>
+        {
+            new Search
+            {
+                query = "Hello this is JabberJaw"
+            }
+        };
+       [HttpGet]
         public ActionResult Index()
         {
-            //var model = new FeedbackDetails();
-            // model.AllFeedback = _db.getAllData();
-            // return View(model);
-           // var query = new SearchDetails();
-            return View();
+            var model = new SearchDetails();
+            model.AllText = details;
+            return View(model);
         }
         [HttpPost]
         public ActionResult Index(SearchDetails details)
         {
-            var model = new SearchDetails();
-            model.Query = details.Query;
             //if(ModelState.IsValid)
             //{
             //    _db.
@@ -31,6 +35,8 @@ namespace JabberJaw.Controllers
             //var model = new FeedbackDetails();
             // model.AllFeedback = _db.getAllData();
             // return View(model);
+            var model = new SearchDetails();
+            model.AllText = details.AllText;
             return RedirectToAction("Index", "Home");
         }
         public ActionResult About()

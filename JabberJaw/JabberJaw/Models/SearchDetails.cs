@@ -7,6 +7,7 @@ namespace JabberJaw.Models
 {
     public class SearchDetails
     {
-        public IList<Search> Query { get; set; }
+        public IList<Search> AllText { get; set; }
+       
     }
 }

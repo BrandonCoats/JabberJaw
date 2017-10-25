@@ -13,7 +13,16 @@
             <img src="~/Content/JabberJaw.jpg">
             <h1>JabberJaw Search</h1>
             <h2>Talk to JabberJaw Below</h2>
-            @Html.TextBoxFor(model => model.Query)
+            <div id="log">   
+                @foreach (var item in Model.AllText)
+                {
+                <div>
+                    <h4>@item.query</h4>
+                    <hr />
+                </div>
+                }  
+            </div>
+            @Html.TextBoxFor(model => model.AllText)
             <input type="submit" name="Talk To JabberJaw">
         </div>
     </div>
