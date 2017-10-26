@@ -11,7 +11,7 @@ namespace JabberJaw.Controllers
     {
         LearningDb _db = new LearningDb();
         // SearchDetails details = new SearchDetails();
-        static List<Search> details = new List<Search>
+        static List<Search> detail = new List<Search>
         {
             new Search
             {
@@ -22,22 +22,18 @@ namespace JabberJaw.Controllers
         public ActionResult Index()
         {
             var model = new SearchDetails();
-            model.AllText = details;
+            model.AllText = detail;
             return View(model);
         }
         [HttpPost]
-        public ActionResult Index(SearchDetails details)
+        public ActionResult Index(Search details)
         {
-            //if(ModelState.IsValid)
-            //{
-            //    _db.
-            //}
-            //var model = new FeedbackDetails();
-            // model.AllFeedback = _db.getAllData();
-            // return View(model);
-            var model = new SearchDetails();
-            model.AllText = details.AllText;
-            return RedirectToAction("Index", "Home");
+            if (ModelState.IsValid)
+            {
+                Search newSearch = details;
+                detail.Add(newSearch);
+            }
+            return View("Index", details);
         }
         public ActionResult About()
         {
