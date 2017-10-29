@@ -7,6 +7,6 @@ namespace JabberJaw.Models
 {
     public class Search
     {
-        public string query{ get; set; }
+        public string query { get; set; }
     }
 }

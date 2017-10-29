@@ -10,30 +10,40 @@ namespace JabberJaw.Controllers
     public class HomeController : Controller
     {
         LearningDb _db = new LearningDb();
-        // SearchDetails details = new SearchDetails();
-        static List<Search> detail = new List<Search>
+        static List<Search> mystrings = new List<Search>()
         {
-            new Search
-            {
-                query = "Hello this is JabberJaw"
-            }
+          new Search
+          {
+            query = "JabberJaw: Hi I'm JabberJaw"
+          }
         };
-       [HttpGet]
+
+        SearchDetails details = new SearchDetails() {AllText =  mystrings };
+        [HttpGet]
         public ActionResult Index()
         {
-            var model = new SearchDetails();
-            model.AllText = detail;
+            var model = details;
+            Console.WriteLine(mystrings);
             return View(model);
         }
         [HttpPost]
-        public ActionResult Index(Search details)
+        public ActionResult Index(SearchDetails search)
         {
             if (ModelState.IsValid)
             {
-                Search newSearch = details;
-                detail.Add(newSearch);
+                Search text = new Search();
+                text.query = "User: "+search.newText;
+                mystrings.Add(text);
+                var model = details;
+                return View(model);
             }
-            return View("Index", details);
+            else
+            {
+                return View(details);
+            }
+          
+            //return RedirectToRoute("Home", "Index");
+            // return View();
         }
         public ActionResult About()
         {

@@ -5,25 +5,27 @@
 }
 
 
-
-@using (Html.BeginForm())
-{
-    <div class="jumbotron">
-        <div class="MyClass">
-            <img src="~/Content/JabberJaw.jpg">
-            <h1>JabberJaw Search</h1>
-            <h2>Talk to JabberJaw Below</h2>
-            <div id="log">   
-                @foreach (var item in Model.AllText)
-                {
+<div class="jumbotron">
+    <div class="MyClass">
+        <img src="~/Content/JabberJaw.jpg">
+        <h1>JabberJaw Search</h1>
+        <h2>Talk to JabberJaw Below</h2>
+        <div id="log">
+            @foreach (var item in Model.AllText)
+            {
                 <div>
                     <h4>@item.query</h4>
                 </div>
-                }  
-            </div>
-            <br />
-            @Html.TextBoxFor(model => model.AllText)
-            <input type="submit" name="Talk To JabberJaw">
+            }
         </div>
+        <br />
+
+        @using (Html.BeginForm())
+        {
+            @Html.TextBoxFor(x => x.newText)
+            <input type="submit" Value="Talk" name="Talk To JabberJaw">
+          
+
+        }
     </div>
-}
+</div>

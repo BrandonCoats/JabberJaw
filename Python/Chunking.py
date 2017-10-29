@@ -2,7 +2,8 @@
 import nltk
 from nltk.corpus import state_union
 from nltk.tokenize import PunktSentenceTokenizer
-
+import sys
+print int(sys.argv[1]) + int(sys.argv[2])
 train_text = state_union.raw("2005-GWBush.txt")
 sample_text = state_union.raw("2006-GWBush.txt")
 

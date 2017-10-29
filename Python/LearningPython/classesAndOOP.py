@@ -21,7 +21,6 @@ class Student:
 
 # class attributes example.
 
-
 class Student:
     school_name = "springfield Elementary"
 

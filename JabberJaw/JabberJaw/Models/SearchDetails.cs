@@ -8,6 +8,6 @@ namespace JabberJaw.Models
     public class SearchDetails
     {
         public IList<Search> AllText { get; set; }
-       
+        public string newText{ get; set; }
     }
 }
