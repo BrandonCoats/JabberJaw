@@ -21,7 +21,7 @@ namespace TestingLinkage
             // arg[2] = second arguement taken from  C#'s main method's args variable ( here i'm passing a number : 6)
             // pass these to your Arguements property of your ProcessStartInfo instance
 
-            start.Arguments = string.Format("{0} {1} {2}", "C:\\dev\\Capstone\\JabberJaw(Working Tiitle)\\JabberJaw\\Python\\Chunking.py", 5,6);
+            start.Arguments = string.Format("{0} {1} {2}", "C:\\dev\\Capstone\\JabberJaw\\JabberJaw\\Python\\Chunking.py", 5,6);
             start.UseShellExecute = false;
             start.RedirectStandardOutput = true;
             using (Process process = Process.Start(start))

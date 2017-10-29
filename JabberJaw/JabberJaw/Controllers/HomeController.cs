@@ -1,6 +1,8 @@
 ﻿using JabberJaw.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -34,6 +36,10 @@ namespace JabberJaw.Controllers
                 Search text = new Search();
                 text.query = "User: "+search.newText;
                 mystrings.Add(text);
+                //user speech added 
+                string response = talkBot(search.newText);
+                text.query = "JabberJaw: " + response;
+                mystrings.Add(text);
                 var model = details;
                 return View(model);
             }
@@ -44,6 +50,27 @@ namespace JabberJaw.Controllers
           
             //return RedirectToRoute("Home", "Index");
             // return View();
+        }
+        public string talkBot(string words)
+        {
+            ProcessStartInfo start = new ProcessStartInfo();
+            string result = "";
+            start.FileName = "C:\\dev\\Python\\python2\\python.exe";
+            start.Arguments = string.Format("{0} {1}", "C:\\dev\\Capstone\\JabberJaw\\JabberJaw\\Python\\SortByPartOfSpeech.py", words);
+            start.UseShellExecute = false;
+            start.RedirectStandardOutput = true;
+            using (Process process = Process.Start(start))
+            {
+                using (StreamReader reader = process.StandardOutput)
+                {
+                    result = reader.ReadToEnd();
+                    // this prints 11
+                    //Console.Write(result);
+
+                }
+            }
+           // Console.Read();
+            return result;
         }
         public ActionResult About()
         {
