@@ -37,9 +37,10 @@ namespace JabberJaw.Controllers
                 text.query = "User: "+search.newText;
                 mystrings.Add(text);
                 //user speech added 
+                Search text2 = new Search();
                 string response = talkBot(search.newText);
-                text.query = "JabberJaw: " + response;
-                mystrings.Add(text);
+                text2.query = "JabberJaw: " + response;
+                mystrings.Add(text2);
                 var model = details;
                 return View(model);
             }
