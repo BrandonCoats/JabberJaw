@@ -75,6 +75,8 @@ namespace JabberJaw.Controllers
         }
         public ActionResult About()
         {
+            mystrings.Clear();
+            mystrings.Add(new Search() { query = "Hi I'm JabberJaw" });
             //This is the first use of .Name i made it up but it doesn't really matter
             //you can put .anything and it creates the specific type of data your retrieving
             ViewBag.Name = "Brandon";

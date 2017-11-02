@@ -52,6 +52,7 @@ class HighSchoolStudent(Student):
     def get_school_name(self):
         return "This is a High School Student"
 
+
 # This method adds behavoir without having to change it
 # doesnt work in python 2
 #    def get_name_capitalize(self):

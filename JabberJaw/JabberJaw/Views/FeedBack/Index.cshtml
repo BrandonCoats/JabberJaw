@@ -6,7 +6,11 @@
     ViewBag.Title = "Index";
 }
 <h2>Index</h2>
-
+@using (Html.BeginForm())
+{
+    @Html.TextBoxFor(x => x.newText)
+    <input type="submit" Value="Talk" name="Talk To JabberJaw">
+}
 @foreach (var item in Model.AllWithPartOfSpeech)
 {
     <div>
