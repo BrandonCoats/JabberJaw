@@ -11,6 +11,7 @@ namespace JabberJaw.Controllers
 {
     public class HomeController : Controller
     {
+        string previousWords = "";
         LearningDb _db = new LearningDb();
         static List<Search> mystrings = new List<Search>()
         {
@@ -54,10 +55,11 @@ namespace JabberJaw.Controllers
         }
         public string talkBot(string words)
         {
+            previousWords = words;
             ProcessStartInfo start = new ProcessStartInfo();
             string result = "";
             start.FileName = "C:\\dev\\Python\\python2\\python.exe";
-            start.Arguments = string.Format("{0} {1}", "C:\\dev\\Capstone\\JabberJaw\\JabberJaw\\Python\\SortByPartOfSpeech.py", words);
+            start.Arguments = string.Format("{0} {1}", "C:\\dev\\Capstone\\JabberJaw\\JabberJaw\\Python\\RawText.py", words);
             start.UseShellExecute = false;
             start.RedirectStandardOutput = true;
             using (Process process = Process.Start(start))
@@ -86,7 +88,13 @@ namespace JabberJaw.Controllers
             model.Height = 5.4;
             return View(model);
         }
-
+        public ActionResult FeedBack()
+        {
+            string lastJabberLog = details.AllText.Last().query;
+            details.previousText = lastJabberLog;
+            Session["details"] = details;
+            return RedirectToAction("Index", "FeedBack");
+        }
         public ActionResult Contact()
         {
             ViewBag.Message = "Just skeletons for now";

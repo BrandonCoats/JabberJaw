@@ -11,43 +11,37 @@ namespace JabberJaw.Controllers
     public class FeedBackController : Controller
     {
 
-        /// <summary>
-        /// Below is a temporary data chunk until i get database connected.
-        /// </summary>
-        /// <returns></returns>
-        //static List<FeedBackResponse> responses = new List<FeedBackResponse>
-        //{
-        //    new FeedBackResponse
-        //    {
-        //        id=1,
-        //        actualWord = "pie",
-        //        partofSpeech = "noun"
-        //    },
-        //    new FeedBackResponse
-        //    {
-        //         id=2,
-        //        actualWord = "run",
-        //        partofSpeech = "verb"
-        //    },
-        //    new FeedBackResponse
-        //    {
-        //         id=3,
-        //        actualWord = "fast",
-        //        partofSpeech = "adjective"
-        //    }
-
-        //};
-        // GET: FeedBack
+    
         LearningDb _db = new LearningDb();
         //need to remove to see the feedback page without signing in
         [Authorize]
+        [HttpGet]
         public ActionResult Index()
         {
-
-            var model = new FeedbackDetails();
-            model.AllWithPartOfSpeech = _db.getAllbyPartOfSpeech("noun");
+            //var model = new DatabaseRetrieval();
+            //model.AllWithPartOfSpeech = _db.getAllbyPartOfSpeech("noun");
+            if (Session["details"] != null)
+            {
+                //If so access it here
+                SearchDetails dete = Session["details"] as SearchDetails;
+                var model = dete;
+                return View(model);
+            }
+            else
+            {
+                return RedirectToRoute("Home", "Index");
+            }
+        }
+        [HttpPost]
+        public ActionResult Index(SearchDetails data)
+        {
+            //var model = new DatabaseRetrieval();
+            //model.AllWithPartOfSpeech = _db.getAllbyPartOfSpeech("noun");
+           
+            var model = data;
             return View(model);
         }
+
         public ActionResult Home()
         {
 

@@ -9,5 +9,7 @@ namespace JabberJaw.Models
     {
         public IList<Search> AllText { get; set; }
         public string newText{ get; set; }
+        public string feedbackText { get; set; }
+        public string previousText { get; set; }
     }
 }

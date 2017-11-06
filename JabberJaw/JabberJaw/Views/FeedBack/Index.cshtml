@@ -1,23 +1,23 @@
-﻿@model JabberJaw.Models.FeedbackDetails
+﻿@model JabberJaw.Models.SearchDetails
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "FeedBack";
 }
-<h2>Index</h2>
+<h2>FeedBack</h2>
+<h3 id="feedbackForm">Please enter the sentence you would have preferred to hear here</h3>
+
+    <div>
+        <h4>Your Last entry: </h4>
+        <h4>@Model.previousText</h4>
+        <hr />
+    </div>
 @using (Html.BeginForm())
 {
     @Html.TextBoxFor(x => x.newText)
-    <input type="submit" Value="Talk" name="Talk To JabberJaw">
+    <input type="submit" Value="Submit" name="Message Prefered">
 }
-@foreach (var item in Model.AllWithPartOfSpeech)
-{
-    <div>
-        <h4>@item.word</h4>
-        <h4>@item.partOfSpeech</h4>
-        <h4>@item.respondedTo</h4>
-        <hr />
-    </div>
-}
+
+    
 
