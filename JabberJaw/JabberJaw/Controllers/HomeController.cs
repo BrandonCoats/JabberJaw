@@ -55,6 +55,7 @@ namespace JabberJaw.Controllers
         }
         public string talkBot(string words)
         {
+            //this is where the magic happens c# reading python output, ill need to write another method that uses this data and can parse it.
             previousWords = words;
             ProcessStartInfo start = new ProcessStartInfo();
             string result = "";
@@ -67,13 +68,19 @@ namespace JabberJaw.Controllers
                 using (StreamReader reader = process.StandardOutput)
                 {
                     result = reader.ReadToEnd();
-                    // this prints 11
-                    //Console.Write(result);
-
                 }
             }
-           // Console.Read();
             return result;
+        }
+        public string convertToMessageSimple(string data)
+        {
+            string package = data;
+            if(package.Contains("Hello"))
+            {
+
+            }
+
+            return null;
         }
         public ActionResult About()
         {
