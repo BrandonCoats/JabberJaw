@@ -40,6 +40,7 @@ namespace JabberJaw.Controllers
                 //user speech added 
                 Search text2 = new Search();
                 string response = talkBot(search.newText);
+                response = convertToMessageSimple(response);
                 text2.query = "JabberJaw: " + response;
                 mystrings.Add(text2);
                 var model = details;
@@ -74,13 +75,25 @@ namespace JabberJaw.Controllers
         }
         public string convertToMessageSimple(string data)
         {
+            //emergency plan need to regroup. 
             string package = data;
             if(package.Contains("Hello"))
             {
-
+                package = "Hi I'm jabberJaw";
+            }else if(package.Contains("How"))
+            {
+                package = "Right now? Not Well at All, I have memory problems?";
+            }
+            else if(package.Contains("Who"))
+            {
+                package = "Brandon Gregory Coats --- Python Wizard";
+            }
+            else
+            {
+                package = "I don't understand that.";
             }
 
-            return null;
+            return package;
         }
         public ActionResult About()
         {
