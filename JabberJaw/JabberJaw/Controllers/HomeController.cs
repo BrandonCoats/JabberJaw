@@ -40,7 +40,7 @@ namespace JabberJaw.Controllers
                 //user speech added 
                 Search text2 = new Search();
                 string response = talkBot(search.newText);
-                response = convertToMessageSimple(response);
+               // response = convertToMessageSimple(response);
                 text2.query = "JabberJaw: " + response;
                 mystrings.Add(text2);
                 var model = details;

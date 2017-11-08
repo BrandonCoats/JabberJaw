@@ -19,7 +19,7 @@ namespace JabberJaw.Models
                 new LearningData
                 {
                     id = ld.id,
-                    word = ld.word,
+                    word = ld.,
                     partOfSpeech = ld.partOfSpeech,
                     respondedTo = ld.responedTo
                 }

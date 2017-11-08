@@ -5,7 +5,16 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="0f013ec32c88465283b630d3635471cb" Name="Diagram1">
-        <EntityTypeShape EntityType="LearningDbModel.LearningData" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LearningDbModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="LearningDbModel.AspNetRole" Width="1.5" PointX="3.75" PointY="2.5" />
+        <EntityTypeShape EntityType="LearningDbModel.AspNetUserClaim" Width="1.5" PointX="8.25" PointY="1" />
+        <EntityTypeShape EntityType="LearningDbModel.AspNetUserLogin" Width="1.5" PointX="8.25" PointY="3.75" />
+        <EntityTypeShape EntityType="LearningDbModel.AspNetUser" Width="1.5" PointX="6" PointY="1.375" />
+        <EntityTypeShape EntityType="LearningDbModel.user" Width="1.5" PointX="2.75" PointY="5.75" />
+        <AssociationConnector Association="LearningDbModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="LearningDbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="LearningDbModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="LearningDbModel.LearningData" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

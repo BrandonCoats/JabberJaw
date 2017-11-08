@@ -12,11 +12,10 @@ namespace JabberJawData
     using System;
     using System.Collections.Generic;
     
-    public partial class LearningData
+    public partial class user
     {
         public int id { get; set; }
-        public string response { get; set; }
-        public string respondedTo { get; set; }
-        public Nullable<int> value { get; set; }
+        public string username { get; set; }
+        public string password { get; set; }
     }
 }
