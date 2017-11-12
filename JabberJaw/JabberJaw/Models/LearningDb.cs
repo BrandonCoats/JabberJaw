@@ -19,14 +19,14 @@ namespace JabberJaw.Models
                 new LearningData
                 {
                     id = ld.id,
-                    word = ld.,
-                    partOfSpeech = ld.partOfSpeech,
-                    respondedTo = ld.responedTo
+                    response = ld.response,
+                    input = ld.input,
+                    value = (int)ld.value
                 }
                 );
             return feedback.ToList();
         }
-        public IList<LearningData> getAllbyPartOfSpeech(String pOfS)
+        public IList<LearningData> getAllResponsesForInput(string input)
         {
             var feedback = context.LearningDatas.Select(x => x).ToList().Select(
 
@@ -34,19 +34,19 @@ namespace JabberJaw.Models
                new LearningData
                {
                    id = ld.id,
-                   word = ld.word,
-                   partOfSpeech = ld.partOfSpeech,
-                   respondedTo = ld.responedTo
+                   response = ld.response,
+                   input = ld.input,
+                   value = (int)ld.value
                }
                );
-            var JustThePartOfSpeech =
+            var responsesForInput =
            from r in feedback
-           where r.partOfSpeech.Equals(pOfS)
+           where r.input.Equals(input)
            select r;
-          
-            return JustThePartOfSpeech.ToList();
+          //gives back all the responses where input matches
+            return responsesForInput.ToList();
         }
-        public IList<LearningData> getAllRespondingTo(String respondString)
+        public IList<LearningData> getInput(string input)
         {
             var feedback = context.LearningDatas.Select(x => x).ToList().Select(
 
@@ -54,19 +54,20 @@ namespace JabberJaw.Models
                new LearningData
                {
                    id = ld.id,
-                   word = ld.word,
-                   partOfSpeech = ld.partOfSpeech,
-                   respondedTo = ld.responedTo
+                   response = ld.response,
+                   input = ld.input,
+                   value = (int)ld.value
                }
                );
             var respondedTo =
            from r in feedback
-           where r.respondedTo.Equals(respondString)
+           where r.input.Equals(input)
            select r;
 
             return respondedTo.ToList();
         }
-        public IList<LearningData> getDataById(int id)
+     
+        public IList<LearningData> getByWord(string word)
         {
             var feedback = context.LearningDatas.Select(x => x).ToList().Select(
 
@@ -74,34 +75,14 @@ namespace JabberJaw.Models
                new LearningData
                {
                    id = ld.id,
-                   word = ld.word,
-                   partOfSpeech = ld.partOfSpeech,
-                   respondedTo = ld.responedTo
-               }
-               );
-            var wordById =
-           from r in feedback
-           where r.id == id
-           select r;
-
-            return wordById.ToList();
-        }
-        public IList<LearningData> getByWord(String word)
-        {
-            var feedback = context.LearningDatas.Select(x => x).ToList().Select(
-
-               ld =>
-               new LearningData
-               {
-                   id = ld.id,
-                   word = ld.word,
-                   partOfSpeech = ld.partOfSpeech,
-                   respondedTo = ld.responedTo
+                   response = ld.response,
+                   input = ld.input,
+                   value = (int)ld.value
                }
                );
             var entryForWord =
            from r in feedback
-           where r.word.Equals(word)
+           where r.input.Contains(word)
            select r;
 
             return entryForWord.ToList();

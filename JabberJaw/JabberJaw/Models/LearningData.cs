@@ -8,8 +8,8 @@ namespace JabberJaw.Models
     public class LearningData
     {
         public int id { get; set; }
-        public string word { get; set; }
-        public string partOfSpeech { get; set; }
-        public string respondedTo { get; set; }
+        public string response { get; set; }
+        public string input { get; set; }
+        public int value { get; set; }
     }
 }

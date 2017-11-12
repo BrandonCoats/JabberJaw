@@ -72,7 +72,7 @@
           </Key>
           <Property Name="id" Type="int" Nullable="false" />
           <Property Name="response" Type="varchar(max)" />
-          <Property Name="respondedTo" Type="varchar(max)" />
+          <Property Name="input" Type="varchar(max)" />
           <Property Name="value" Type="int" />
         </EntityType>
         <EntityType Name="users">
@@ -295,7 +295,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" />
           <Property Name="response" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="respondedTo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="input" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="value" Type="Int32" />
         </EntityType>
       </Schema>
@@ -380,7 +380,7 @@
             <EntityTypeMapping TypeName="LearningDbModel.LearningData">
               <MappingFragment StoreEntitySet="LearningData">
                 <ScalarProperty Name="value" ColumnName="value" />
-                <ScalarProperty Name="respondedTo" ColumnName="respondedTo" />
+                <ScalarProperty Name="input" ColumnName="input" />
                 <ScalarProperty Name="response" ColumnName="response" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>

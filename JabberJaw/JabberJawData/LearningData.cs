@@ -16,7 +16,7 @@ namespace JabberJawData
     {
         public int id { get; set; }
         public string response { get; set; }
-        public string respondedTo { get; set; }
+        public string input { get; set; }
         public Nullable<int> value { get; set; }
     }
 }
