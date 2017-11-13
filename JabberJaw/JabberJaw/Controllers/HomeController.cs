@@ -62,7 +62,7 @@ namespace JabberJaw.Controllers
             string response = "I don't understand that.";
             for(int i = 0; i < responses.Count; i++)
             {
-                if(responses[i].input.Equals(words))
+                if(responses[i].input.Equals(words.ToLower()))
                 {
                     allResponsesForInput.Add(responses[i]);
                 }
@@ -125,7 +125,7 @@ namespace JabberJaw.Controllers
             details.previousText = lastJabberLog;
             string lastInput = details.AllText[details.AllText.Count - 2].query;
             string[] parts = lastInput.Split(':');
-            details.inputString = parts[1]; 
+            details.inputString = parts[1].ToLower(); 
             Session["details"] = details;
             return RedirectToAction("Index", "FeedBack");
         }

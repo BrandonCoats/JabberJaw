@@ -42,7 +42,7 @@ namespace JabberJaw.Controllers
             //model.AllWithPartOfSpeech = _db.getAllbyPartOfSpeech("noun");
            
             var model = data;
-            dbData.response = data.newText;
+            dbData.response = data.newText.ToLower();
             dbData.value = 50;
             _db.addRow(dbData);
             //i think this fixed it
