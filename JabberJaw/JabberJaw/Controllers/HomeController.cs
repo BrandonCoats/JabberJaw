@@ -35,13 +35,14 @@ namespace JabberJaw.Controllers
             if (ModelState.IsValid)
             {
                 Search text = new Search();
-                text.query = "User: "+search.newText;
+               // details.inputString = search.newText;
+                text.query = "User:"+search.newText;
                 mystrings.Add(text);
                 //user speech added 
                 Search text2 = new Search();
-                string response = talkBot(search.newText);
+                string response = talkBotDB(search.newText);
                // response = convertToMessageSimple(response);
-                text2.query = "JabberJaw: " + response;
+                text2.query = "JabberJaw:" + response;
                 mystrings.Add(text2);
                 var model = details;
                 return View(model);
@@ -53,6 +54,37 @@ namespace JabberJaw.Controllers
           
             //return RedirectToRoute("Home", "Index");
             // return View();
+        }
+        public string talkBotDB(string words)
+        {
+            List<LearningData> responses = _db.getAllResponsesForInput(words.ToLower()).ToList();
+            List<LearningData> allResponsesForInput = new List<LearningData>();
+            string response = "I don't understand that.";
+            for(int i = 0; i < responses.Count; i++)
+            {
+                if(responses[i].input.Equals(words))
+                {
+                    allResponsesForInput.Add(responses[i]);
+                }
+            }
+            LearningData data = null;
+            if (allResponsesForInput.Count > 0)
+            {
+               data = allResponsesForInput[0];
+            }
+            for(int i = 0; i < allResponsesForInput.Count; i++)
+            {
+                if(allResponsesForInput[i].value > data.value)
+                {
+                    data = allResponsesForInput[i];
+                }
+            }
+            if(data != null)
+            {
+                response = data.response;
+            }
+            return response;
+
         }
         public string talkBot(string words)
         {
@@ -73,28 +105,7 @@ namespace JabberJaw.Controllers
             }
             return result;
         }
-        public string convertToMessageSimple(string data)
-        {
-            //emergency plan need to regroup. 
-            string package = data;
-            if(package.Contains("Hello"))
-            {
-                package = "Hi I'm jabberJaw";
-            }else if(package.Contains("How"))
-            {
-                package = "Right now? Not Well at All, I have memory problems?";
-            }
-            else if(package.Contains("Who"))
-            {
-                package = "Brandon Gregory Coats --- Python Wizard";
-            }
-            else
-            {
-                package = "I don't understand that.";
-            }
-
-            return package;
-        }
+      
         public ActionResult About()
         {
             mystrings.Clear();
@@ -112,6 +123,9 @@ namespace JabberJaw.Controllers
         {
             string lastJabberLog = details.AllText.Last().query;
             details.previousText = lastJabberLog;
+            string lastInput = details.AllText[details.AllText.Count - 2].query;
+            string[] parts = lastInput.Split(':');
+            details.inputString = parts[1]; 
             Session["details"] = details;
             return RedirectToAction("Index", "FeedBack");
         }

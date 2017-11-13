@@ -13,6 +13,7 @@ namespace JabberJaw.Controllers
 
     
         LearningDb _db = new LearningDb();
+       static JabberJawData.LearningData dbData = new JabberJawData.LearningData();
         //need to remove to see the feedback page without signing in
         [Authorize]
         [HttpGet]
@@ -25,6 +26,8 @@ namespace JabberJaw.Controllers
                 //If so access it here
                 SearchDetails dete = Session["details"] as SearchDetails;
                 var model = dete;
+                dbData.input = dete.inputString;
+                Console.WriteLine(dete.inputString);
                 return View(model);
             }
             else
@@ -39,6 +42,10 @@ namespace JabberJaw.Controllers
             //model.AllWithPartOfSpeech = _db.getAllbyPartOfSpeech("noun");
            
             var model = data;
+            dbData.response = data.newText;
+            dbData.value = 50;
+            _db.addRow(dbData);
+            //i think this fixed it
             return View(model);
         }
 

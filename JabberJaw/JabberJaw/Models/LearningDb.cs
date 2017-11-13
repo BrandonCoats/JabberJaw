@@ -87,6 +87,16 @@ namespace JabberJaw.Models
 
             return entryForWord.ToList();
         }
+
+        public void addRow(JabberJawData.LearningData data)
+        {
+
+            //data.input = "shit is broke";
+            context.LearningDatas.Add(data);
+            //context.Database.ExecuteSqlCommand("insert into LearningData(response,input,value)"+ 
+            //    "Values('"+data.response+"','"+data.input+"',"+data.value+")");
+            context.SaveChanges();
+        }
     }
 
 }

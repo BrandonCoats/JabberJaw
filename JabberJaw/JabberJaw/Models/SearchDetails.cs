@@ -11,5 +11,6 @@ namespace JabberJaw.Models
         public string newText{ get; set; }
         public string feedbackText { get; set; }
         public string previousText { get; set; }
+        public string inputString { get; set; }
     }
 }
