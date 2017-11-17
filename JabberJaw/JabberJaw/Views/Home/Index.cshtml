@@ -3,8 +3,6 @@
 @{
     ViewBag.Title = "Home Page";
 }
-
-
 <div class="jumbotron">
     <div class="MyClass">
         <img src="~/Content/JabberJaw.jpg">
@@ -18,8 +16,47 @@
                 </div>
             }
         </div>
-        <br />
+        <asp:scriptmanager id="ScriptManager1" runat="server">
+        </asp:scriptmanager>
 
+        <asp:button id="Button1" runat="server" text="Button" />
+
+        <cc1:modalpopupextender id="ModalPopupExtender1" runat="server"
+                                cancelcontrolid="btnCancel" okcontrolid="btnOkay"
+                                targetcontrolid="Button1" popupcontrolid="Panel1"
+                                popupdraghandlecontrolid="PopupHeader" drag="true"
+                                backgroundcssclass="ModalPopupBG">
+        </cc1:modalpopupextender>
+
+        <asp:panel id="Panel1" style="display: none" runat="server">
+            <div class="HellowWorldPopup">
+                <div class="PopupHeader" id="PopupHeader">Header</div>
+                <div class="PopupBody">
+                    <p>This is a simple modal dialog</p>
+                </div>
+                <div class="Controls">
+                    <input id="btnOkay" type="button" value="Done" />
+                    <input id="btnCancel" type="button" value="Cancel" />
+                </div>
+            </div>
+        </asp:panel>
+        <br />
+ <script language="javascript" type="text/javascript">
+    function pageLoad() {
+        ShowPopup();
+        setTimeout(HidePopup, 2000);
+    }
+
+    function ShowPopup() {
+        $find('modalpopup').show();
+        //$get('Button1').click();
+    }
+
+    function HidePopup() {
+        $find('modalpopup').hide();
+        //$get('btnCancel').click();
+    }
+  </script>
         @using (Html.BeginForm())
         {
             @Html.TextBoxFor(x => x.newText)

@@ -11,7 +11,6 @@ namespace JabberJaw.Controllers
 {
     public class HomeController : Controller
     {
-        string previousWords = "";
         LearningDb _db = new LearningDb();
         static List<Search> mystrings = new List<Search>()
         {
@@ -86,8 +85,27 @@ namespace JabberJaw.Controllers
             return response;
 
         }
-        public string talkBot(string words)
+        public string talkWithContext(string userInput)
         {
+            List<string> wordAndPots = new List<string>();
+            string[] indvWords = userInput.Split(' ');
+            //gives back words as individuals as determined by the space
+            for (int i = 0; i < indvWords.Length; i++)
+            {
+                string word = getPythonTokenized(indvWords[i]);
+                wordAndPots.Add(word);
+            }
+            Dictionary<string, string> wordsAndSpeech = new Dictionary<string, string>();
+            for(int i = 0; i < wordAndPots.Count; i++)
+            {
+                string wordParts = wordAndPots[i];
+                
+            }
+            return null;
+        }
+        public string getPythonTokenized(string words)
+        {
+            string previousWords = "";
             //this is where the magic happens c# reading python output, ill need to write another method that uses this data and can parse it.
             previousWords = words;
             ProcessStartInfo start = new ProcessStartInfo();

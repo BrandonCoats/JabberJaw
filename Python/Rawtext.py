@@ -4,6 +4,7 @@ from nltk.tokenize import PunktSentenceTokenizer
 import sys
 
 stuff = ""
+
 train_text = sys.argv[0]
 sample_text = sys.argv[1]
 
