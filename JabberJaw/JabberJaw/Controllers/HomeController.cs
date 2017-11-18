@@ -56,36 +56,12 @@ namespace JabberJaw.Controllers
         }
         public string talkBotDB(string words)
         {
-            List<LearningData> responses = _db.getAllResponsesForInput(words.ToLower()).ToList();
-            List<LearningData> allResponsesForInput = new List<LearningData>();
-            string response = "I don't understand that.";
-            for(int i = 0; i < responses.Count; i++)
-            {
-                if(responses[i].input.Equals(words.ToLower()))
-                {
-                    allResponsesForInput.Add(responses[i]);
-                }
-            }
-            LearningData data = null;
-            if (allResponsesForInput.Count > 0)
-            {
-               data = allResponsesForInput[0];
-            }
-            for(int i = 0; i < allResponsesForInput.Count; i++)
-            {
-                if(allResponsesForInput[i].value > data.value)
-                {
-                    data = allResponsesForInput[i];
-                }
-            }
-            if(data != null)
-            {
-                response = data.response;
-            }
-            return response;
+           List<UseWords> allWordswithContext = getWordsWithContext(words);
+           List<LearningData> allResponses = _db.getAllResponsesForInput(words.ToLower()).ToList();
+           
 
         }
-        public string talkWithContext(string userInput)
+        private List<UseWords> getWordsWithContext(string userInput)
         {
             List<string> wordAndPots = new List<string>();
             string[] indvWords = userInput.Split(' ');
@@ -93,15 +69,25 @@ namespace JabberJaw.Controllers
             for (int i = 0; i < indvWords.Length; i++)
             {
                 string word = getPythonTokenized(indvWords[i]);
+                Console.WriteLine(word);
                 wordAndPots.Add(word);
             }
-            Dictionary<string, string> wordsAndSpeech = new Dictionary<string, string>();
-            for(int i = 0; i < wordAndPots.Count; i++)
+            List<UseWords> wordsAndSpeech = new List<UseWords>();
+
+            for (int i = 0; i < wordAndPots.Count; i++)
             {
                 string wordParts = wordAndPots[i];
-                
+                string[] parts = wordParts.Split('\'');
+                for (int k = 0; k < parts.Length; k++)
+                {
+                    Console.WriteLine("Part: " + parts[k]);
+                }
+                //actually grabs the parts based on the words
+                UseWords wordandPart = new UseWords(parts[1], parts[3]);
+                wordsAndSpeech.Add(wordandPart);
             }
-            return null;
+
+            return wordsAndSpeech;
         }
         public string getPythonTokenized(string words)
         {
