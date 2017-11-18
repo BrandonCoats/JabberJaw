@@ -20,7 +20,7 @@ namespace JabberJaw.Controllers
           }
         };
 
-        SearchDetails details = new SearchDetails() {AllText =  mystrings };
+        SearchDetails details = new SearchDetails() { AllText = mystrings };
         [HttpGet]
         public ActionResult Index()
         {
@@ -34,13 +34,13 @@ namespace JabberJaw.Controllers
             if (ModelState.IsValid)
             {
                 Search text = new Search();
-               // details.inputString = search.newText;
-                text.query = "User:"+search.newText;
+                // details.inputString = search.newText;
+                text.query = "User:" + search.newText;
                 mystrings.Add(text);
                 //user speech added 
                 Search text2 = new Search();
-                string response = talkBotDB(search.newText);
-               // response = convertToMessageSimple(response);
+                string response = responseSortedByOccurence(search.newText);
+                // response = convertToMessageSimple(response);
                 text2.query = "JabberJaw:" + response;
                 mystrings.Add(text2);
                 var model = details;
@@ -50,16 +50,55 @@ namespace JabberJaw.Controllers
             {
                 return View(details);
             }
-          
+
             //return RedirectToRoute("Home", "Index");
             // return View();
         }
-        public string talkBotDB(string words)
+        public string responseSortedByOccurence(string words)
         {
-           List<UseWords> allWordswithContext = getWordsWithContext(words);
-           List<LearningData> allResponses = _db.getAllResponsesForInput(words.ToLower()).ToList();
-           
+            List<UseWords> allWordswithContext = getWordsWithContext(words);
+            List<SortedResults> responsesAndCounts = new List<SortedResults>();
+            for (int i = 0; i < allWordswithContext.Count; i++)
+            {
+                UseWords currentWord = allWordswithContext[i];
+                List<LearningData> responses = _db.getByWord(currentWord.word.ToLower()).ToList();
+               for(int k = 0; k < responses.Count; k++)
+                {
+                    if(responsesAndCounts.Count < 1)
+                    {
+                        SortedResults newResult = new SortedResults(responses[k], 1);
+                        responsesAndCounts.Add(newResult);
+                    }
+                    for(int l = 0; l < responsesAndCounts.Count; l++)
+                    {
+                        if (responsesAndCounts[l].data.Equals(responses[k]))
+                        {//the current response has already been retrieved by a different word
+                            responsesAndCounts[l].count = responsesAndCounts[l].count + 1;
+                        }
+                        else
+                        {//add a brand new response to list
+                            SortedResults newResult = new SortedResults(responses[k],1);
+                            responsesAndCounts.Add(newResult);
+                        }
+                    }
+                }
+            }
+            //sorted results should now have all the responses and there values use these to sort 
+            string response = "I don't understand that";
+            SortedResults currentBestResult = null;
+            for(int i = 0; i < responsesAndCounts.Count; i++)
+            {
+                if(currentBestResult == null || currentBestResult.count < responsesAndCounts[i].count)
+                {
+                    currentBestResult = responsesAndCounts[i];
+                }
+            }
+            if(currentBestResult !=null)
+            {
+                response = currentBestResult.data.response;
+            }
 
+            return response;
         }
         private List<UseWords> getWordsWithContext(string userInput)
         {
@@ -69,7 +108,7 @@ namespace JabberJaw.Controllers
             for (int i = 0; i < indvWords.Length; i++)
             {
                 string word = getPythonTokenized(indvWords[i]);
-                Console.WriteLine(word);
+                //Console.WriteLine(word);
                 wordAndPots.Add(word);
             }
             List<UseWords> wordsAndSpeech = new List<UseWords>();
@@ -78,10 +117,10 @@ namespace JabberJaw.Controllers
             {
                 string wordParts = wordAndPots[i];
                 string[] parts = wordParts.Split('\'');
-                for (int k = 0; k < parts.Length; k++)
-                {
-                    Console.WriteLine("Part: " + parts[k]);
-                }
+                //for (int k = 0; k < parts.Length; k++)
+                //{
+                //    Console.WriteLine("Part: " + parts[k]);
+                //}
                 //actually grabs the parts based on the words
                 UseWords wordandPart = new UseWords(parts[1], parts[3]);
                 wordsAndSpeech.Add(wordandPart);
@@ -109,7 +148,7 @@ namespace JabberJaw.Controllers
             }
             return result;
         }
-      
+
         public ActionResult About()
         {
             mystrings.Clear();
@@ -129,7 +168,7 @@ namespace JabberJaw.Controllers
             details.previousText = lastJabberLog;
             string lastInput = details.AllText[details.AllText.Count - 2].query;
             string[] parts = lastInput.Split(':');
-            details.inputString = parts[1].ToLower(); 
+            details.inputString = parts[1].ToLower();
             Session["details"] = details;
             return RedirectToAction("Index", "FeedBack");
         }
@@ -139,7 +178,7 @@ namespace JabberJaw.Controllers
 
             return View();
         }
-       
-        
+
+
     }
 }

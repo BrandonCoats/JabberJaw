@@ -212,6 +212,8 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Search.cs" />
     <Compile Include="Models\SearchDetails.cs" />
+    <Compile Include="Models\SortedResults.cs" />
+    <Compile Include="Models\UseWords.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
