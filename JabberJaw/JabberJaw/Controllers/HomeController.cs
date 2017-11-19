@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 
 namespace JabberJaw.Controllers
 {
@@ -54,6 +55,7 @@ namespace JabberJaw.Controllers
             //return RedirectToRoute("Home", "Index");
             // return View();
         }
+      
         public string responseSortedByOccurence(string words)
         {
             List<UseWords> allWordswithContext = getWordsWithContext(words);
@@ -77,6 +79,7 @@ namespace JabberJaw.Controllers
                         }
                         else
                         {//add a brand new response to list
+                            //bug is here probably
                             SortedResults newResult = new SortedResults(responses[k],1);
                             responsesAndCounts.Add(newResult);
                         }
@@ -85,45 +88,61 @@ namespace JabberJaw.Controllers
             }
             //sorted results should now have all the responses and there values use these to sort 
             string response = "I don't understand that";
-            response = MatchFirstApproach(responsesAndCounts);
-            //response = UserFirstApproach(responsesAndCounts);
+            List<SortedResults> sortedByMatch = MatchFirstFilter(responsesAndCounts);
+            List<SortedResults> sortedByMatchandUser = UserFirstFilter(sortedByMatch);
+            //i now know the bottom should be the number one answer because both have been sorted
+            response = sortedByMatchandUser[0].data.response;//gives the response back
             return response;
         }
-        private string UserFirstApproach(List<SortedResults> responsesAndCounts)
+        private List<SortedResults> MatchFirstFilter(List<SortedResults> responsesAndCounts)
         {
-            string response = "I don't understand that";
             SortedResults currentBestResult = null;
-            for (int i = 0; i < responsesAndCounts.Count; i++)
+            List<SortedResults> sortedListbyMatch = new List<SortedResults>();
+            if(responsesAndCounts.Count > 0)
             {
-                if (currentBestResult == null || currentBestResult.count < responsesAndCounts[i].count)
-                {//change happens here for the user preference
-                    currentBestResult = responsesAndCounts[i];
-                }
-
+                currentBestResult = responsesAndCounts[0];
             }
-            if (currentBestResult != null)
+            while(sortedListbyMatch.Count != responsesAndCounts.Count)
             {
-                response = currentBestResult.data.response;
-            }
-            return response;
-        }
-        private string MatchFirstApproach(List<SortedResults> responsesAndCounts)
-        {
-            string response = "I don't understand that";
-            SortedResults currentBestResult = null;
-            for (int i = 0; i < responsesAndCounts.Count; i++)
-            {//modify to take in the user but not put ifasice on it
-                if (currentBestResult == null || currentBestResult.count < responsesAndCounts[i].count)
+                for (int i = 0; i < responsesAndCounts.Count; i++)
                 {
-                    currentBestResult = responsesAndCounts[i];
+                    if (currentBestResult == null || currentBestResult.count < responsesAndCounts[i].count)
+                    {//change happens here for the user preference
+                        currentBestResult = responsesAndCounts[i];
+                    }
                 }
-
+                if(currentBestResult != null)
+                {
+                    sortedListbyMatch.Add(currentBestResult);
+                    currentBestResult = null;
+                }
             }
-            if (currentBestResult != null)
+            return sortedListbyMatch;
+        }
+        private List<SortedResults> UserFirstFilter(List<SortedResults> responsesAndCounts)
+        {
+            SortedResults currentBestResult = null;
+            List<SortedResults> sortedListbyMatch = new List<SortedResults>();
+            if (responsesAndCounts.Count > 0)
             {
-                response = currentBestResult.data.response;
+                currentBestResult = responsesAndCounts[0];
             }
-            return response;
+            while (sortedListbyMatch.Count != responsesAndCounts.Count)
+            {
+                for (int i = 0; i < responsesAndCounts.Count; i++)
+                {
+                    if (currentBestResult == null || responsesAndCounts[i].data.value > currentBestResult.data.value)
+                    {//change happens here for the user preference
+                        currentBestResult = responsesAndCounts[i];
+                    }
+                }
+                if (currentBestResult != null)
+                {
+                    sortedListbyMatch.Add(currentBestResult);
+                    currentBestResult = null;
+                }
+            }
+            return sortedListbyMatch;
         }
         private List<UseWords> getWordsWithContext(string userInput)
         {
