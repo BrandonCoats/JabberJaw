@@ -85,19 +85,44 @@ namespace JabberJaw.Controllers
             }
             //sorted results should now have all the responses and there values use these to sort 
             string response = "I don't understand that";
+            response = MatchFirstApproach(responsesAndCounts);
+            //response = UserFirstApproach(responsesAndCounts);
+            return response;
+        }
+        private string UserFirstApproach(List<SortedResults> responsesAndCounts)
+        {
+            string response = "I don't understand that";
             SortedResults currentBestResult = null;
-            for(int i = 0; i < responsesAndCounts.Count; i++)
+            for (int i = 0; i < responsesAndCounts.Count; i++)
             {
-                if(currentBestResult == null || currentBestResult.count < responsesAndCounts[i].count)
-                {
+                if (currentBestResult == null || currentBestResult.count < responsesAndCounts[i].count)
+                {//change happens here for the user preference
                     currentBestResult = responsesAndCounts[i];
                 }
+
             }
-            if(currentBestResult !=null)
+            if (currentBestResult != null)
             {
                 response = currentBestResult.data.response;
             }
+            return response;
+        }
+        private string MatchFirstApproach(List<SortedResults> responsesAndCounts)
+        {
+            string response = "I don't understand that";
+            SortedResults currentBestResult = null;
+            for (int i = 0; i < responsesAndCounts.Count; i++)
+            {//modify to take in the user but not put ifasice on it
+                if (currentBestResult == null || currentBestResult.count < responsesAndCounts[i].count)
+                {
+                    currentBestResult = responsesAndCounts[i];
+                }
 
+            }
+            if (currentBestResult != null)
+            {
+                response = currentBestResult.data.response;
+            }
             return response;
         }
         private List<UseWords> getWordsWithContext(string userInput)
