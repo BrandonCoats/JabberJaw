@@ -6,8 +6,6 @@
     ViewBag.Title = "FeedBack";
 }
 <h2>FeedBack</h2>
-<h3 id="feedbackForm">Please enter the sentence you would have preferred to hear here</h3>
-
     <div>
         <h4>Your input:</h4>
         <h4>@Model.inputString</h4>
@@ -15,11 +13,15 @@
         <h4>Bots last reply: </h4>
         <h4>@Model.previousText</h4>
         <hr />
+        <h3 id="feedbackForm">Submit a response you believe is better below</h3>
     </div>
 @using (Html.BeginForm())
 {
     @Html.TextBoxFor(x => x.newText)
+    <h4>Enter the value here that the responses should be valued(temporary): </h4>
+    @Html.TextBoxFor(x =>x.userNum)
     <input type="submit" Value="Submit" name="Message Prefered">
+
 }
 
     

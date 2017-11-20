@@ -59,37 +59,33 @@ namespace JabberJaw.Controllers
         public string responseSortedByOccurence(string words)
         {
             List<UseWords> allWordswithContext = getWordsWithContext(words);
-            List<SortedResults> responsesAndCounts = new List<SortedResults>();
-            for (int i = 0; i < allWordswithContext.Count; i++)
+            List<SortedResults> allResponses = new List<SortedResults>();
+            //i need to fill up the responses and get the counts
+            for(int i = 0; i < allWordswithContext.Count; i++)
             {
-                UseWords currentWord = allWordswithContext[i];
-                List<LearningData> responses = _db.getByWord(currentWord.word.ToLower()).ToList();
-               for(int k = 0; k < responses.Count; k++)
+                List<LearningData> results = _db.getByWord(allWordswithContext[i].word).ToList();
+                foreach(LearningData data in results)
                 {
-                    if(responsesAndCounts.Count < 1)
+                    SortedResults result = new SortedResults(data, 1);
+                    if(allResponses.Contains(result))
                     {
-                        SortedResults newResult = new SortedResults(responses[k], 1);
-                        responsesAndCounts.Add(newResult);
+                        allResponses.Remove(result);
+                        result.count = result.count + 1;
+                        allResponses.Add(result);
                     }
-                    for(int l = 0; l < responsesAndCounts.Count; l++)
+                    else
                     {
-                        if (responsesAndCounts[l].data.Equals(responses[k]))
-                        {//the current response has already been retrieved by a different word
-                            responsesAndCounts[l].count = responsesAndCounts[l].count + 1;
-                        }
-                        else
-                        {//add a brand new response to list
-                            //bug is here probably
-                            SortedResults newResult = new SortedResults(responses[k],1);
-                            responsesAndCounts.Add(newResult);
-                        }
+                        allResponses.Add(result);
                     }
+                    
                 }
             }
+            //should now have a list of just the resulkts and there accurate counts
+
             //sorted results should now have all the responses and there values use these to sort 
             string response = "I don't understand that";
-            List<SortedResults> sortedByMatch = MatchFirstFilter(responsesAndCounts);
-            List<SortedResults> sortedByMatchandUser = UserFirstFilter(sortedByMatch);
+            List<SortedResults> sortedByMatch = MatchFirstFilter(allResponses);
+            List<SortedResults> sortedByMatchandUser = UserFirstFilter(allResponses);
             //i now know the bottom should be the number one answer because both have been sorted
             response = sortedByMatchandUser[0].data.response;//gives the response back
             return response;

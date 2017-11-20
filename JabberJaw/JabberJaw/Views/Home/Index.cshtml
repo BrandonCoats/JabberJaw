@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Home Page";
 }
+<link rel="stylesheet" type="text/css" href="~/Content/ModalStyle.css">
 <div class="jumbotron">
     <div class="MyClass">
         <img src="~/Content/JabberJaw.jpg">
@@ -16,20 +17,58 @@
                 </div>
             }
         </div>
-        <a href="#openModal">Open Modal</a>
+        <!-- trigger the mPopup -->
 
-        <div id="openModal" class="modalDialog">
-            <div>
-                <a href="#close" title="Close" class="close">X</a>
-                <h2>Modal Box</h2>
-                <p>This is a sample modal box that can be created using the powers of CSS3.</p>
-                <p>You could do a lot of things here like have a pop-up ad that shows when your website loads, or create a login/register form for users.</p>
+        <!-- mPopup box -->
+        <div id="mpopupBox" class="mpopup">
+            <!-- mPopup content -->
+            <div class="mpopup-content">
+                <div class="mpopup-head">
+                    <span class="close">×</span>
+                    <h2>Helping JabberJaw Learn</h2>
+                </div>
+                <div class="mpopup-main">
+                    <p>JabberJaw is Always Learning</p>
+                    <p>Because of this he always needs help, please click here to get started helping JabberJaw learn</p>
+                    @Html.ActionLink("Help JabberJaw Learn", "FeedBack", "Home")
+                </div>
+                <div class="mpopup-foot">
+                    <p>A Message from The Developers of JabberJaw</p>
+                </div>
             </div>
+        </div>
         <br />
         @using (Html.BeginForm())
         {
             @Html.TextBoxFor(x => x.newText)
             <input type="submit" Value="Talk" name="Talk To JabberJaw">
+            <a href="javascript:void(0);" id="mpopupLink">Open Popup</a>
         }
     </div>
 </div>
+<script>
+    var mpopup = document.getElementById('mpopupBox');
+
+    // get the link that opens the mPopup
+    var mpLink = document.getElementById("mpopupLink");
+
+    // get the close action element
+    var close = document.getElementsByClassName("close")[0];
+
+    // open the mPopup once the link is clicked
+    mpLink.onclick = function() {
+        mpopup.style.display = "block";
+    }
+
+    // close the mPopup once close element is clicked
+    close.onclick = function() {
+        mpopup.style.display = "none";
+    }
+
+    // close the mPopup when user clicks outside of the box
+    window.onclick = function(event) {
+        if (event.target == mpopup) {
+            mpopup.style.display = "none";
+        }
+    }
+</script>
