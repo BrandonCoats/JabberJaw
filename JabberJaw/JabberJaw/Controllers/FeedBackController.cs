@@ -43,7 +43,23 @@ namespace JabberJaw.Controllers
            
             var model = data;
             dbData.response = data.newText.ToLower();
-            dbData.value = 50;
+            int userVal = 50;
+            if(data.userNum =="")
+            {
+                // they did enter use default 50
+            }
+            else
+            {
+                try
+                {
+                    userVal = Int32.Parse(data.userNum);
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine("Convertion exception: "+ e);
+                }    
+            }
+            dbData.value = userVal;
             _db.addRow(dbData);
             //i think this fixed it
             return View(model);
