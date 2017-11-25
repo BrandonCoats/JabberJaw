@@ -45,6 +45,14 @@ namespace JabberJaw.Controllers
                 text2.query = "JabberJaw:" + response;
                 mystrings.Add(text2);
                 var model = details;
+                if (response.Equals("I don't understand that"))
+                {
+                    model.isResponse = true;
+                }
+                else
+                {
+                    model.isResponse = false;
+                }
                 return View(model);
             }
             else
@@ -87,8 +95,16 @@ namespace JabberJaw.Controllers
             List<SortedResults> sortedByMatch = MatchFirstFilter(allResponses);
             List<SortedResults> sortedByMatchandUser = UserFirstFilter(allResponses);
             //i now know the bottom should be the number one answer because both have been sorted
-            response = sortedByMatchandUser[0].data.response;//gives the response back
-            return response;
+            if (sortedByMatchandUser.Count > 0)
+            {
+                response = sortedByMatchandUser[0].data.response;//gives the response back
+                return response;
+            }
+            else
+            {
+
+                return response;
+            }
         }
         private List<SortedResults> MatchFirstFilter(List<SortedResults> responsesAndCounts)
         {

@@ -13,5 +13,6 @@ namespace JabberJaw.Models
         public string previousText { get; set; }
         public string inputString { get; set; }
         public string userNum { get; set; }
+        public bool isResponse { get; set; }
     }
 }
