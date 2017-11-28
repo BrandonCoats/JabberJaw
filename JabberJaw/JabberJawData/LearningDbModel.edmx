@@ -63,9 +63,8 @@
           <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
           <Property Name="LockoutEndDateUtc" Type="datetime" />
           <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
-          <Property Name="AccessFailedCount" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
-          <Property Name="Value" Type="int" />
         </EntityType>
         <EntityType Name="LearningData">
           <Key>
@@ -83,16 +82,6 @@
           <Property Name="id" Type="int" Nullable="false" />
           <Property Name="username" Type="varchar(max)" />
           <Property Name="password" Type="varchar(max)" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'LearningDb.dbo.UserValues' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="UserValues">
-          <Key>
-            <PropertyRef Name="Email" />
-            <PropertyRef Name="Value" />
-          </Key>
-          <Property Name="Email" Type="nvarchar" MaxLength="256" Nullable="false" />
-          <Property Name="Value" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -159,12 +148,6 @@ warning 6002: The table/view 'LearningDb.dbo.UserValues' does not have a primary
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LearningData" EntityType="Self.LearningData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserValues" EntityType="Self.UserValues" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [UserValues].[Email] AS [Email], 
-    [UserValues].[Value] AS [Value]
-    FROM [dbo].[UserValues] AS [UserValues]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -206,7 +189,6 @@ warning 6002: The table/view 'LearningDb.dbo.UserValues' does not have a primary
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
           </AssociationSet>
           <EntitySet Name="LearningDatas" EntityType="LearningDbModel.LearningData" />
-          <EntitySet Name="UserValues" EntityType="LearningDbModel.UserValue" />
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
@@ -266,7 +248,6 @@ warning 6002: The table/view 'LearningDb.dbo.UserValues' does not have a primary
           <NavigationProperty Name="AspNetUserClaims" Relationship="LearningDbModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="LearningDbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
           <NavigationProperty Name="AspNetRoles" Relationship="LearningDbModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
-          <Property Name="Value" Type="Int32" />
         </EntityType>
         <EntityType Name="user">
           <Key>
@@ -317,14 +298,6 @@ warning 6002: The table/view 'LearningDb.dbo.UserValues' does not have a primary
           <Property Name="input" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="value" Type="Int32" />
         </EntityType>
-        <EntityType Name="UserValue">
-          <Key>
-            <PropertyRef Name="Email" />
-            <PropertyRef Name="Value" />
-          </Key>
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="Value" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -371,7 +344,6 @@ warning 6002: The table/view 'LearningDb.dbo.UserValues' does not have a primary
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="LearningDbModel.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
-                <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
                 <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
@@ -411,14 +383,6 @@ warning 6002: The table/view 'LearningDb.dbo.UserValues' does not have a primary
                 <ScalarProperty Name="input" ColumnName="input" />
                 <ScalarProperty Name="response" ColumnName="response" />
                 <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserValues">
-            <EntityTypeMapping TypeName="LearningDbModel.UserValue">
-              <MappingFragment StoreEntitySet="UserValues">
-                <ScalarProperty Name="Value" ColumnName="Value" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

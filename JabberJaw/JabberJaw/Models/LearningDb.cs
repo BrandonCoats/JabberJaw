@@ -10,46 +10,7 @@ namespace JabberJaw.Models
     public class LearningDb 
     {
         LearningDbEntities context = new LearningDbEntities();
-        //allright big stuff here make a foreign key in the new table cal UserVAlues and use the user name from the session to do a query in here to access it .
-       //nevermiond get directly from user
-       public IList<UserValue> getValueForUser(string email)
-        {
-            var userData = context.AspNetUsers.Select(x => x).ToList().Select(
 
-                VFU =>
-                new UserValue
-                {
-
-                    UserVal = (int)VFU.Value,
-                   Email = VFU.Email
-                    // id = VFU.Id,
-                    //Email = VFU.Email,
-                    //EmailConfirmed = VFU.EmailConfirmed,
-                    //PasswordHash = VFU.PasswordHash,
-                    //SecurityStamp = VFU.SecurityStamp,
-                    //PhoneNumber = VFU.PhoneNumber,
-                    //PhoneNumberConfirmed = VFU.PhoneNumberConfirmed,
-                    //TwoFactorEnabled = VFU.TwoFactorEnabled,
-                    //LockoutEndDateUTC = (DateTime)VFU.LockoutEndDateUtc,
-                    //LockoutEnabled = VFU.LockoutEnabled,
-                    //AccessFailedCount = VFU.AccessFailedCount,
-                    //UserName = VFU.UserName,
-                    //Value = (int)VFU.Value
-                }
-                );
-            Console.WriteLine(userData);
-            var valueForUser =
-           from r in userData
-           where r.Email.Equals(email)
-           select r;
-            //gives back all the responses where input matches
-            if(valueForUser == null)
-            {
-                return null;
-            }
-            return valueForUser.ToList();
-         
-        }
         public IList<LearningData> getAllData()
         {
             var feedback = context.LearningDatas.Select(x => x).ToList().Select(
