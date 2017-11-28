@@ -32,5 +32,6 @@ namespace JabberJawData
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<user> users { get; set; }
         public virtual DbSet<LearningData> LearningDatas { get; set; }
+        public virtual DbSet<UserValue> UserValues { get; set; }
     }
 }

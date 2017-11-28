@@ -27,7 +27,8 @@ namespace JabberJaw.Controllers
                 SearchDetails dete = Session["details"] as SearchDetails;
                 var model = dete;
                 dbData.input = dete.inputString;
-                Console.WriteLine(dete.inputString);
+                //Console.WriteLine(dete.inputString);
+                
                 return View(model);
             }
             else
@@ -43,7 +44,18 @@ namespace JabberJaw.Controllers
            
             var model = data;
             dbData.response = data.newText.ToLower();
+            
             int userVal = 50;
+                
+                List<UserValue> userInfo = _db.getValueForUser(User.Identity.Name).ToList();
+                UserValue thisUser = userInfo[0];
+                userVal = thisUser.UserVal;
+                if (userVal == 0)
+                {
+                    userVal = 50;
+                }
+            
+           
             if(data.userNum =="")
             {
                 // they did enter use default 50
