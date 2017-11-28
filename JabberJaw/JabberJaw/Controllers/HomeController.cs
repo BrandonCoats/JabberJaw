@@ -222,7 +222,11 @@ namespace JabberJaw.Controllers
         {
             string lastJabberLog = details.AllText.Last().query;
             details.previousText = lastJabberLog;
-            string lastInput = details.AllText[details.AllText.Count - 2].query;
+            string lastInput = "JabberJaw:Nothing";
+            if (details.AllText.Count > 2)
+            {
+                 lastInput = details.AllText[details.AllText.Count - 2].query;
+            }
             string[] parts = lastInput.Split(':');
             details.inputString = parts[1].ToLower();
             Session["details"] = details;

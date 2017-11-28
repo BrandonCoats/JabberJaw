@@ -7,7 +7,6 @@
 <div class="jumbotron">
     <div class="MyClass">
         <img src="~/Content/JabberJaw.jpg">
-        <h1>JabberJaw Search</h1>
         <h2>Talk to JabberJaw Below</h2>
         <div id="log">
             @foreach (var item in Model.AllText)
@@ -17,11 +16,7 @@
                 </div>
             }
         </div>
-        <!-- trigger the mPopup -->
-
-        <!-- mPopup box -->
         <div id="mpopupBox" class="mpopup">
-            <!-- mPopup content -->
             <div class="mpopup-content">
                 <div class="mpopup-head">
                     <span class="close">×</span>
@@ -29,30 +24,32 @@
                 </div>
                 <div class="mpopup-main">
                     <p>JabberJaw is Always Learning</p>
-                    <p>Because of this he always needs help, please click here to get started helping JabberJaw learn</p>
+                    <p>Because of this it always needs help, please click here to get started helping JabberJaw learn</p>
                     @Html.ActionLink("Help JabberJaw Learn", "FeedBack", "Home")
+                    <p>Otherwise either click the x up at the top or click out of this Box to go back to your conversation.</p>
                 </div>
                 <div class="mpopup-foot">
-                    <p>A Message from The Developers of JabberJaw</p>
+                    <p>A Message from The Developer of JabberJaw</p>
                 </div>
             </div>
         </div>
         <br />
-        @if (Model.isResponse)
-            {
-            <!---<a href="javascript:void(0);" id="mpopupLink">Open Popup</a>-->
-            <script>popUp()</script>
-            }
+      
+        <div class="popButton">
+          
+            <h2>Psst if you wanna get rid of those annoying "I don't understand thats" click below!</h2>
+            <button type="button" class="popButton" onclick="popUP()" id="mpopupLink">Help Me Learn</button>
+        </div>
+        <br />
         @using (Html.BeginForm())
         {
             @Html.TextBoxFor(x => x.newText)
-            <input type="submit" Value="Talk" name="Talk To JabberJaw" >
-           <!-- <a href="javascript:void(0);" id="mpopupLink">Open Popup</a>-->
+            <input type="submit" Value="Talk" name="Talk To JabberJaw">
         }
     </div>
 </div>
 <script>
-    function popUp()
+    function popUP()
     {
         var mpopup = document.getElementById('mpopupBox');
 
@@ -63,24 +60,23 @@
         var close = document.getElementsByClassName("close")[0];
 
         // open the mPopup once the link is clicked
-        //mpLink.onclick = function () {
-        mpopup.style.display = "block";
-        
-        //}
+        mpLink.onclick = function () {
+            mpopup.style.display = "block";
 
-         //close the mPopup once close element is clicked
+        }
+
+        //close the mPopup once close element is clicked
         close.onclick = function () {
             mpopup.style.display = "none";
-       }
+        }
 
         // close the mPopup when user clicks outside of the box
-            //window.onclick = function (event)
-            //{
-            //    if (event.target == mpopup)
-            //    {
-            //    mpopup.style.display = "none";
-            //    }
-            //}
+        window.onclick = function (event) {
+            if (event.target == mpopup) {
+                mpopup.style.display = "none";
+            }
+        }
+
     }
-   
+    popUP();
 </script>
