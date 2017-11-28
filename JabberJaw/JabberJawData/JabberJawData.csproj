@@ -88,6 +88,9 @@
     <Compile Include="user.cs">
       <DependentUpon>LearningDbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserValue.cs">
+      <DependentUpon>LearningDbModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="LearningDbModel.edmx">

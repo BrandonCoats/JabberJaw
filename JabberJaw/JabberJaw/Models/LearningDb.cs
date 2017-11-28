@@ -85,6 +85,7 @@ namespace JabberJaw.Models
            where r.input.Contains(word)
            select r;
 
+
             return entryForWord.ToList();
         }
 
