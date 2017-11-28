@@ -92,8 +92,8 @@ namespace JabberJaw.Controllers
 
             //sorted results should now have all the responses and there values use these to sort 
             string response = "I don't understand that";
-            List<SortedResults> sortedByMatch = MatchFirstFilter(allResponses);
-            List<SortedResults> sortedByMatchandUser = UserFirstFilter(allResponses);
+            List<SortedResults> sortedByUser = UserFirstFilter(allResponses);
+            List<SortedResults> sortedByMatchandUser = MatchFirstFilter(sortedByUser);
             //i now know the bottom should be the number one answer because both have been sorted
             if (sortedByMatchandUser.Count > 0)
             {
