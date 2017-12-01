@@ -72,19 +72,30 @@ namespace JabberJaw.Controllers
             for(int i = 0; i < allWordswithContext.Count; i++)
             {
                 List<LearningData> results = _db.getByWord(allWordswithContext[i].word).ToList();
-                foreach(LearningData data in results)
+                for(int k = 0; k <results.Count; k++ )
                 {
-                    SortedResults result = new SortedResults(data, 1);
-                    if(allResponses.Contains(result))
+                    if(allResponses.Count == 0)
                     {
-                        allResponses.Remove(result);
-                        result.count = result.count + 1;
-                        allResponses.Add(result);
+                        SortedResults newEntry = new SortedResults(results[k], 1);
+                        allResponses.Add(newEntry);
                     }
                     else
                     {
-                        allResponses.Add(result);
+                        for (int j = 0; j < allResponses.Count; j++)
+                        {
+                            SortedResults result = allResponses[j];
+                            if (results[k].response.Equals(result.data.response))
+                            {
+                                allResponses[j].count = allResponses[j].count + 1;
+                            }
+                            else
+                            {
+                                SortedResults newEntry = new SortedResults(results[k], 1);
+                                allResponses.Add(newEntry);
+                            }
+                        }
                     }
+                    
                     
                 }
             }
@@ -92,8 +103,8 @@ namespace JabberJaw.Controllers
 
             //sorted results should now have all the responses and there values use these to sort 
             string response = "I don't understand that";
-            List<SortedResults> sortedByUser = UserFirstFilter(allResponses);
-            List<SortedResults> sortedByMatchandUser = MatchFirstFilter(sortedByUser);
+            List<SortedResults> sortedByUser = MatchFirstFilter(allResponses);
+            List<SortedResults> sortedByMatchandUser = UserFirstFilter(sortedByUser);
             //i now know the bottom should be the number one answer because both have been sorted
             if (sortedByMatchandUser.Count > 0)
             {
@@ -207,8 +218,8 @@ namespace JabberJaw.Controllers
 
         public ActionResult About()
         {
-            mystrings.Clear();
-            mystrings.Add(new Search() { query = "Hi I'm JabberJaw" });
+            //mystrings.Clear();
+            //mystrings.Add(new Search() { query = "Hi I'm JabberJaw" });
             //This is the first use of .Name i made it up but it doesn't really matter
             //you can put .anything and it creates the specific type of data your retrieving
             ViewBag.Name = "Brandon";
