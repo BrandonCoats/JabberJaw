@@ -32,13 +32,14 @@ textarea {
     background-color: white;
     color: black;
     padding-left:1%;
+    box-shadow: 5px 5px 5px #888888 ;
     text-align: left;
     border-radius: 25px;
     border: 2px solid black;
 }
 .popButton
 {
-    background-color: #696969; /* Green */
+    background-color: #696969; /* grey black */
     border: none;
     color: white;
     padding: 15px 32px;
